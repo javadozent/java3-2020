@@ -1,0 +1,65 @@
+<!--
+ http://localhost:8080/faces/Hello.xhtml
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+
+<h:head></h:head>
+<h:body>
+
+    <h1>
+
+        <h:outputText value="Validierung"/>
+    </h1>
+
+    <p>
+Siehe: eigene Validator Klasse
+        com.example.hello22.validators.ConfirmPasswordValidator
+
+    </p>
+
+    <h:form id="myform">
+        <h:panelGrid columns="3">
+
+            <h:outputLabel for="usr" value="Username"/>
+            <h:inputText id="usr" required="true" value="#{userBean.user.username}">
+                <f:validateLength maximum="20" minimum="2"/>
+            </h:inputText>
+            <h:message for="usr"/>
+
+            <h:outputLabel for="pwd" value="Password"/>
+            <h:inputText id="pwd" required="true"  value="#{userBean.user.password}" >
+                <f:validateLength minimum="3" />
+            </h:inputText>
+            <h:message for="pwd"/>
+
+            <h:outputLabel for="pwd_confirm" value="Password Confirm"/>
+            <h:inputText id="pwd_confirm" required="true" value="#{userBean.user.password}">
+                <f:validator validatorId="com.example.hello22.validators.ConfirmPasswordValidator"/>
+            </h:inputText>
+            <h:message for="pwd_confirm"/>
+
+            <h:outputLabel for="eamil" value="E-Mail"/>
+            <h:inputText id="eamil"  value="#{userBean.user.email}">
+                <f:validateRegex pattern=".+@.+\..+" />
+            </h:inputText>
+            <h:message for="eamil"/>
+
+
+        </h:panelGrid>
+
+        <h:commandButton value="go" action="Welcome"/>
+    </h:form>
+
+
+</h:body>
+</html>

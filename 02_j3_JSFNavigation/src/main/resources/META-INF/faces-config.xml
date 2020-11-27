@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+              version="2.3">
+
+
+    <navigation-rule>
+        <from-view-id>/Hello.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>s2</from-outcome>
+            <to-view-id>/Hello2.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>s3</from-outcome>
+            <to-view-id>/Hello3.xhtml</to-view-id>
+        </navigation-case>
+
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/Hello.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

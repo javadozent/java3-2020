@@ -1,0 +1,62 @@
+<!--
+ http://localhost:8080/faces/Hello.xhtml
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+
+<h:head></h:head>
+<h:body>
+
+    <h1>
+
+        <h:outputText value="Mars Rover Photos"/>
+    </h1>
+    <h:form id="form">
+        <p:datePicker id="german" value="#{marsRoverBean.selectedDate}" locale="de" monthNavigator="true"
+                      yearNavigator="true"
+                      pattern="dd.MM.yyyy" mindate="#{marsRoverBean.minDate}">
+
+            <p:ajax event="dateSelect" update="grid" listener="#{marsRoverBean.onSelect}"/>
+        </p:datePicker>
+
+
+        <p:overlayPanel widgetVar="imgDialog" baseZIndex="10000" position="top">
+
+            <p:galleria id="gal"
+                        value="#{marsRoverBean.result.photos}" var="photo"
+                        panelWidth="600" panelHeight="413" showCaption="true">
+
+                <p:graphicImage url="#{photo.imgSrc}" width="80%"
+                                title="Rovername: #{photo.rover.name}"/>
+            </p:galleria>
+        </p:overlayPanel>
+
+        <p:dataGrid id="grid" var="photo" value="#{marsRoverBean.result.photos}" columns="2" layout="grid"
+                    rows="4" paginator="true"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        >
+            <p:panel header="#{photo.rover.name}   #{photo.earthDate}">
+                <p:commandLink oncomplete="PF('imgDialog').show()" update="form:gal">
+                    <p:panelGrid columns="1">
+                        <p:graphicImage url="#{photo.imgSrc}" width="25%"/>
+                        <h:outputText value="#{photo.camera.fullName}"/>
+                    </p:panelGrid>
+                </p:commandLink>
+            </p:panel>
+
+        </p:dataGrid>
+
+
+    </h:form>
+
+</h:body>
+</html>

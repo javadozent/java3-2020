@@ -1,0 +1,57 @@
+<!--
+ http://localhost:8080/faces/Hello.xhtml
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+
+<h:head></h:head>
+<h:body>
+
+    <h1>
+
+        <h:outputText value="Validierung"/>
+    </h1>
+
+
+    <h:form id="myform">
+        <h:panelGrid columns="3">
+
+            <h:outputLabel for="v_name" value="Vorname"/>
+            <h:inputText id="v_name" required="true">
+                <f:validateLength maximum="20" minimum="2"/>
+
+            </h:inputText>
+            <h:message for="v_name"/>
+
+            <h:outputLabel for="plz" value="PLZ"/>
+            <h:inputText id="plz" required="true">
+              <f:validateRegex pattern="[0-9]{5}"/>
+            </h:inputText>
+            <h:message for="plz"/>
+
+            <h:outputLabel for="eamil" value="E-Mail"/>
+            <h:inputText id="eamil" required="true">
+              <f:validator validatorId="com.example.hallo22.validators.EmailValidator" />
+            </h:inputText>
+            <h:message for="eamil"/>
+
+            <h:outputLabel for="agb" value="AGB gelesen"/>
+                <h:selectBooleanCheckbox id="agb"   />
+            <h:message for="agb"/>
+        </h:panelGrid>
+
+        <h:commandButton value="go" />
+    </h:form>
+
+
+</h:body>
+</html>

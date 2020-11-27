@@ -1,0 +1,7 @@
+/*body{
+    background-color: coral;
+}*/
+
+.ui-widget-content.entrydone{
+    background: green !important;
+}

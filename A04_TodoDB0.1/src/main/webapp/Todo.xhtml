@@ -1,0 +1,76 @@
+<!--
+ http://localhost:8080/faces/Hello.xhtml
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+
+<h:head>
+    <!--resources js, css, image-->
+
+    <h:outputStylesheet library="css" name="style.css"/>
+
+</h:head>
+<h:body>
+    <!-- Achhtung! jede Seite sollte ein messages Element bekommen, um Konvertierungs/Validierungsfehler zu sehen-->
+    <p:growl id="msg"  showDetail="false"  life="2000"/>
+    <h:form>
+
+
+        <p:panel id="mainpanel" header="Todoliste">
+
+            <p:toolbar>
+
+                <f:facet name="left">
+                    <p:inputText value="#{todoBean.tmpTodo.entry}" placeholder="Entry"/>
+                    <p:datePicker placeholder="Deadline" value="#{todoBean.tmpTodo.deadline}" locale="de"
+                                  monthNavigator="true"
+                                  pattern="dd.MM.yyyy"/>
+                    <p:selectOneMenu value="#{todoBean.tmpTodo.priority}">
+
+                    <f:selectItems value="#{todoBean.prios}"/>
+
+                    </p:selectOneMenu>
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton value="Save" actionListener="#{todoBean.save}" update="mainpanel msg"/>
+                </f:facet>
+            </p:toolbar>
+
+
+            <p:dataTable id="table" value="#{todoBean.todolist}" var="todo" rowStyleClass="#{todo.done?'entrydone':null}" >
+                <p:column headerText="Entry">
+                    <h:outputText value="#{todo.entry}"/>
+                </p:column>
+
+                <p:column headerText="Deadline">
+                    <h:outputText value="#{todo.deadline}"/>
+                </p:column>
+                <p:column headerText="Priority">
+                    <h:outputText value="#{todo.priority}"/>
+                </p:column>
+                <p:column headerText="Done">
+                    <p:selectBooleanCheckbox value="#{todo.done}"  >
+
+                        <p:ajax  listener="#{todoBean.onSelect(todo)}" update="table msg"/>
+                    </p:selectBooleanCheckbox>
+                </p:column>
+
+
+            </p:dataTable>
+
+
+        </p:panel>
+    </h:form>
+    <p:link value="H2 DB Console" href="http://localhost:8080/h2-console/" />
+</h:body>
+</html>
